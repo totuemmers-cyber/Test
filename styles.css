@@ -73,6 +73,18 @@
   --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-jp: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --cc-menschen: #e11d48;
+  --cc-menschen-bg: #fff1f2;
+  --cc-menschen-border: #fecdd3;
+  --cc-objekte: #3b82f6;
+  --cc-objekte-bg: #eff6ff;
+  --cc-objekte-border: #bfdbfe;
+  --cc-tiere: #10b981;
+  --cc-tiere-bg: #ecfdf5;
+  --cc-tiere-border: #a7f3d0;
+  --cc-zeit: #8b5cf6;
+  --cc-zeit-bg: #f5f3ff;
+  --cc-zeit-border: #c4b5fd;
 }
 
 [data-theme="dark"] {
@@ -116,6 +128,14 @@
   --vt-ausdruck-border: #be185d;
   --vt-partikel-bg: #134e4a;
   --vt-partikel-border: #0d9488;
+  --cc-menschen-bg: #881337;
+  --cc-menschen-border: #9f1239;
+  --cc-objekte-bg: #1e3a5f;
+  --cc-objekte-border: #2563eb;
+  --cc-tiere-bg: #064e3b;
+  --cc-tiere-border: #065f46;
+  --cc-zeit-bg: #4c1d95;
+  --cc-zeit-border: #5b21b6;
 }
 
 html {
@@ -303,11 +323,7 @@ body {
   pointer-events: none;
 }
 
-#search-input,
-#grammar-search-input,
-#vocab-search-input,
-#counters-search-input,
-#radicals-search-input {
+.search-input {
   width: 100%;
   padding: 12px 40px 12px 42px;
   border: 2px solid var(--border);
@@ -320,20 +336,12 @@ body {
   transition: all var(--transition);
 }
 
-#search-input:focus,
-#grammar-search-input:focus,
-#vocab-search-input:focus,
-#counters-search-input:focus,
-#radicals-search-input:focus {
+.search-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
 }
 
-#search-input::placeholder,
-#grammar-search-input::placeholder,
-#vocab-search-input::placeholder,
-#counters-search-input::placeholder,
-#radicals-search-input::placeholder {
+.search-input::placeholder {
   color: var(--text-secondary);
 }
 
@@ -498,7 +506,11 @@ main {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.kanji-card:hover {
+.kanji-card:hover,
+.grammar-card:hover,
+.vocab-card:hover,
+.counter-card:hover,
+.radical-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
   border-color: transparent;
@@ -516,31 +528,31 @@ main {
   letter-spacing: 0.03em;
 }
 
-.card-level.N5 {
+.card-level.N5, .detail-jlpt-badge.N5 {
   background: var(--n5-bg);
   color: var(--n5);
   border: 1px solid var(--n5-border);
 }
 
-.card-level.N4 {
+.card-level.N4, .detail-jlpt-badge.N4 {
   background: var(--n4-bg);
   color: var(--n4);
   border: 1px solid var(--n4-border);
 }
 
-.card-level.N3 {
+.card-level.N3, .detail-jlpt-badge.N3 {
   background: var(--n3-bg);
   color: var(--n3);
   border: 1px solid var(--n3-border);
 }
 
-.card-level.N2 {
+.card-level.N2, .detail-jlpt-badge.N2 {
   background: var(--n2-bg);
   color: var(--n2);
   border: 1px solid var(--n2-border);
 }
 
-.card-level.N1 {
+.card-level.N1, .detail-jlpt-badge.N1 {
   background: var(--n1-bg);
   color: var(--n1);
   border: 1px solid var(--n1-border);
@@ -688,35 +700,7 @@ main {
   border-radius: var(--radius-pill);
 }
 
-.detail-jlpt-badge.N5 {
-  background: var(--n5-bg);
-  color: var(--n5);
-  border: 1px solid var(--n5-border);
-}
-
-.detail-jlpt-badge.N4 {
-  background: var(--n4-bg);
-  color: var(--n4);
-  border: 1px solid var(--n4-border);
-}
-
-.detail-jlpt-badge.N3 {
-  background: var(--n3-bg);
-  color: var(--n3);
-  border: 1px solid var(--n3-border);
-}
-
-.detail-jlpt-badge.N2 {
-  background: var(--n2-bg);
-  color: var(--n2);
-  border: 1px solid var(--n2-border);
-}
-
-.detail-jlpt-badge.N1 {
-  background: var(--n1-bg);
-  color: var(--n1);
-  border: 1px solid var(--n1-border);
-}
+/* JLPT badge colors consolidated with .card-level above */
 
 .detail-meanings {
   font-size: 1.2rem;
@@ -975,11 +959,7 @@ main {
   overflow: hidden;
 }
 
-.grammar-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-  border-color: transparent;
-}
+/* Grammar card hover consolidated above with .kanji-card:hover */
 
 .grammar-card-header {
   display: flex;
@@ -1015,25 +995,25 @@ main {
   flex-shrink: 0;
 }
 
-.grammar-card-category.Partikel {
+.grammar-card-category.Partikel, .grammar-category-badge.Partikel {
   background: var(--cat-partikel-bg);
   color: var(--cat-partikel);
   border: 1px solid var(--cat-partikel-border);
 }
 
-.grammar-card-category.Verben {
+.grammar-card-category.Verben, .grammar-category-badge.Verben {
   background: var(--cat-verben-bg);
   color: var(--cat-verben);
   border: 1px solid var(--cat-verben-border);
 }
 
-.grammar-card-category.Adjektive {
+.grammar-card-category.Adjektive, .grammar-category-badge.Adjektive {
   background: var(--cat-adjektive-bg);
   color: var(--cat-adjektive);
   border: 1px solid var(--cat-adjektive-border);
 }
 
-.grammar-card-category.Satzstrukturen {
+.grammar-card-category.Satzstrukturen, .grammar-category-badge.Satzstrukturen {
   background: var(--cat-satzstrukturen-bg);
   color: var(--cat-satzstrukturen);
   border: 1px solid var(--cat-satzstrukturen-border);
@@ -1083,29 +1063,7 @@ main {
   border-radius: var(--radius-pill);
 }
 
-.grammar-category-badge.Partikel {
-  background: var(--cat-partikel-bg);
-  color: var(--cat-partikel);
-  border: 1px solid var(--cat-partikel-border);
-}
-
-.grammar-category-badge.Verben {
-  background: var(--cat-verben-bg);
-  color: var(--cat-verben);
-  border: 1px solid var(--cat-verben-border);
-}
-
-.grammar-category-badge.Adjektive {
-  background: var(--cat-adjektive-bg);
-  color: var(--cat-adjektive);
-  border: 1px solid var(--cat-adjektive-border);
-}
-
-.grammar-category-badge.Satzstrukturen {
-  background: var(--cat-satzstrukturen-bg);
-  color: var(--cat-satzstrukturen);
-  border: 1px solid var(--cat-satzstrukturen-border);
-}
+/* Grammar category badge colors consolidated with .grammar-card-category above */
 
 .grammar-detail-meaning {
   font-size: 1.15rem;
@@ -1272,11 +1230,7 @@ main {
   overflow: hidden;
 }
 
-.vocab-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-  border-color: transparent;
-}
+/* Vocab card hover consolidated above with .kanji-card:hover */
 
 .vocab-card-header {
   display: flex;
@@ -1426,12 +1380,6 @@ main {
 @media (min-width: 480px) {
   .kanji-grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  }
-  .grammar-grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
-  .vocab-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
@@ -1716,32 +1664,7 @@ main {
 
 /* === COUNTERS (Zahlen & Zählwörter) === */
 
-/* Category colors */
-:root {
-  --cc-menschen: #e11d48;
-  --cc-menschen-bg: #fff1f2;
-  --cc-menschen-border: #fecdd3;
-  --cc-objekte: #3b82f6;
-  --cc-objekte-bg: #eff6ff;
-  --cc-objekte-border: #bfdbfe;
-  --cc-tiere: #10b981;
-  --cc-tiere-bg: #ecfdf5;
-  --cc-tiere-border: #a7f3d0;
-  --cc-zeit: #8b5cf6;
-  --cc-zeit-bg: #f5f3ff;
-  --cc-zeit-border: #c4b5fd;
-}
-
-[data-theme="dark"] {
-  --cc-menschen-bg: #881337;
-  --cc-menschen-border: #9f1239;
-  --cc-objekte-bg: #1e3a5f;
-  --cc-objekte-border: #2563eb;
-  --cc-tiere-bg: #064e3b;
-  --cc-tiere-border: #065f46;
-  --cc-zeit-bg: #4c1d95;
-  --cc-zeit-border: #5b21b6;
-}
+/* Counter category colors merged into :root and [data-theme="dark"] above */
 
 /* Filter buttons */
 .filter-btn.cc-menschen:hover, .filter-btn.cc-menschen.active {
@@ -1902,11 +1825,7 @@ main {
   overflow: hidden;
 }
 
-.counter-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-  border-color: transparent;
-}
+/* Counter card hover consolidated above with .kanji-card:hover */
 
 .counter-card-header {
   display: flex;
@@ -1934,25 +1853,25 @@ main {
   flex-shrink: 0;
 }
 
-.counter-card-badge.Menschen {
+.counter-card-badge.Menschen, .counter-category-badge.Menschen {
   background: var(--cc-menschen-bg);
   color: var(--cc-menschen);
   border: 1px solid var(--cc-menschen-border);
 }
 
-.counter-card-badge.Objekte {
+.counter-card-badge.Objekte, .counter-category-badge.Objekte {
   background: var(--cc-objekte-bg);
   color: var(--cc-objekte);
   border: 1px solid var(--cc-objekte-border);
 }
 
-.counter-card-badge.Tiere {
+.counter-card-badge.Tiere, .counter-category-badge.Tiere {
   background: var(--cc-tiere-bg);
   color: var(--cc-tiere);
   border: 1px solid var(--cc-tiere-border);
 }
 
-.counter-card-badge.Zeit {
+.counter-card-badge.Zeit, .counter-category-badge.Zeit {
   background: var(--cc-zeit-bg);
   color: var(--cc-zeit);
   border: 1px solid var(--cc-zeit-border);
@@ -2022,29 +1941,7 @@ main {
   border-radius: var(--radius-pill);
 }
 
-.counter-category-badge.Menschen {
-  background: var(--cc-menschen-bg);
-  color: var(--cc-menschen);
-  border: 1px solid var(--cc-menschen-border);
-}
-
-.counter-category-badge.Objekte {
-  background: var(--cc-objekte-bg);
-  color: var(--cc-objekte);
-  border: 1px solid var(--cc-objekte-border);
-}
-
-.counter-category-badge.Tiere {
-  background: var(--cc-tiere-bg);
-  color: var(--cc-tiere);
-  border: 1px solid var(--cc-tiere-border);
-}
-
-.counter-category-badge.Zeit {
-  background: var(--cc-zeit-bg);
-  color: var(--cc-zeit);
-  border: 1px solid var(--cc-zeit-border);
-}
+/* Counter category badge colors consolidated with .counter-card-badge above */
 
 .counter-detail-reading {
   font-family: var(--font-jp);
@@ -2269,11 +2166,7 @@ main {
   animation: fadeIn 0.3s ease;
 }
 
-.radical-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-  border-color: transparent;
-}
+/* Radical card hover consolidated above with .kanji-card:hover */
 
 .radical-card-number {
   position: absolute;
